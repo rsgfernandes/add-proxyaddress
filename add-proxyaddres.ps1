@@ -6,6 +6,7 @@
 Import-Module activedirectory
 $userou = 'OU=Organizational_Unit,DC=domain,DC=com,DC=br'
 $newproxydomain = "@youroldoralternatedomain.com.br"
+$defaultemailaddress = @yourdefaultdomain.com.br
 $users = Get-ADUser -Filter * -SearchBase $userou -Properties SamAccountName, EmailAddress, ProxyAddresses
 Foreach ($user in $users) {
 	If (!$user.EmailAddress) {
