@@ -1,3 +1,9 @@
+########################################################### 
+# AUTHOR  : Rodrigo Fernandes - https://br.linkedin.com/in/rsgfernandes
+# DATE    : 06-05-2015
+# CHANGES : Added functionality for duplicate OU names and
+########################################################### 
+
 Import-Module activedirectory
 $userou = 'OU=Organizational_Unit,DC=domain,DC=com,DC=br'
 $newproxydomain = "@youroldoralternatedomain.com.br"
