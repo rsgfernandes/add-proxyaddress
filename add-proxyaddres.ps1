@@ -6,7 +6,7 @@
 Import-Module activedirectory
 $userou = 'OU=Organizational_Unit,DC=domain,DC=com,DC=br'
 $newproxydomain = "@youroldoralternatedomain.com.br"
-$defaultemailaddress = @yourdefaultdomain.com.br
+$defaultemailaddress = "@yourdefaultdomain.com.br"
 $users = Get-ADUser -Filter * -SearchBase $userou -Properties SamAccountName, EmailAddress, ProxyAddresses
 Foreach ($user in $users) {
 	If (!$user.EmailAddress) {
@@ -14,7 +14,9 @@ Foreach ($user in $users) {
 	}
 	Else {
 		Get-ADUser -Filter "SamAccountName -eq '$($user.samaccountname)'" -Properties * | Set-ADUser -Add @ {
-			Proxyaddresses="SMTP:"+$user.EmailAddress.split('@')[0]+""+$newproxydomain
+			Proxyaddresses="SMTP:"+$user.EmailAddress.split('@')[0]+""+$defaultemailaddress}
+		Get-ADUser -Filter "SamAccountName -eq '$($user.samaccountname)'" -Properties * | Set-ADUser -Add @ {
+			Proxyaddresses="smtp:"+$user.EmailAddress.split('@')[0]+""+$newproxydomain
 		}
 	}
 }
